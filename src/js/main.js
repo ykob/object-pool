@@ -59,18 +59,23 @@ var updateMover = function () {
 
 var activateMover = function () {
   var count = 0;
+  var vector = vector_mouse_move.clone();
+  var radian = 0;
+  var scalar = 0;
+  var x = 0;
+  var y = 0;
+  var force = new Vector2();
   
   for (var i = 0; i < movers.length; i++) {
     var mover = movers[i];
     
     if (mover.is_active) continue;
     
-    var vector = vector_mouse_move.clone();
-    var radian = Util.getRadian(Util.getRandomInt(70, 110));
-    var scalar = Util.getRandomInt(5, 12);
-    var x = Math.cos(radian) * scalar;
-    var y = Math.sin(radian) * scalar;
-    var force = new Vector2(x, y);
+    radian = Util.getRadian(Util.getRandomInt(70, 110));
+    scalar = Util.getRandomInt(5, 12);
+    x = Math.cos(radian) * scalar;
+    y = Math.sin(radian) * scalar;
+    force.set(x, y);
 
     mover.activate();
     mover.init(vector, 6);

@@ -8,8 +8,6 @@ var body_width  = document.body.clientWidth * 2;
 var body_height = document.body.clientHeight * 2;
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-var fps = 60;
-var last_time_render = Date.now();
 var last_time_activate = Date.now();
 var vector_mouse_move = new Vector2(body_width / 2, body_height / 1.5);
 
@@ -17,7 +15,7 @@ var movers = [];
 var count_movers = 0;
 var unit_mover = 10000;
 
-var anti_gravity = new Vector2(0, -0.7);
+var anti_gravity = new Vector2(0, -0.5);
 
 var init = function () {
   poolMover();
@@ -38,13 +36,13 @@ var poolMover = function () {
   count_movers += unit_mover;
 };
 
-var updateMover = function () {
+var updateMover = function updateMover() {
   for (var i = 0; i < movers.length; i++) {
     var mover = movers[i];
     
     if (!mover.is_active) continue;
-    mover.time += 1000 / fps;
-    if (mover.time > 500) {
+    mover.time += 1;
+    if (mover.time > 40) {
       mover.a -= 0.025;
       mover.radius -= mover.radius / 40;
       if (mover.radius < 0) mover.radius = 0;
@@ -57,7 +55,7 @@ var updateMover = function () {
   }
 }
 
-var activateMover = function () {
+var activateMover = function activateMover() {
   var count = 0;
   var vector = vector_mouse_move.clone();
   var radian = 0;
@@ -86,27 +84,24 @@ var activateMover = function () {
   }
 };
 
-var render = function () {
+var render = function render() {
   ctx.clearRect(0, 0, body_width, body_height);
   ctx.globalCompositeOperation = 'lighter';
   updateMover();
 };
 
-var renderloop = function () {
+var renderloop = function renderloop() {
   var now = Date.now();
   requestAnimationFrame(renderloop);
 
-  if (now - last_time_render > 1000 / fps) {
-    render();
-    last_time_render = Date.now();
-  }
+  render();
   if (now - last_time_activate > 10) {
     activateMover();
     last_time_activate = Date.now();
   }
 };
 
-var resizeCanvas = function () {
+var resizeCanvas = function resizeCanvas() {
   body_width  = document.body.clientWidth * 2;
   body_height = document.body.clientHeight * 2;
 

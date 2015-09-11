@@ -36,7 +36,7 @@ var poolMover = function () {
   count_movers += unit_mover;
 };
 
-var updateMover = function updateMover() {
+var updateMover = function () {
   for (var i = 0; i < movers.length; i++) {
     var mover = movers[i];
     
@@ -53,9 +53,9 @@ var updateMover = function updateMover() {
     mover.draw(ctx);
     if (mover.a <= 0) mover.inactivate();
   }
-}
+};
 
-var activateMover = function activateMover() {
+var activateMover = function () {
   var count = 0;
   var vector = vector_mouse_move.clone();
   var radian = 0;
@@ -84,13 +84,13 @@ var activateMover = function activateMover() {
   }
 };
 
-var render = function render() {
+var render = function () {
   ctx.clearRect(0, 0, body_width, body_height);
   ctx.globalCompositeOperation = 'lighter';
   updateMover();
 };
 
-var renderloop = function renderloop() {
+var renderloop = function () {
   var now = Date.now();
   requestAnimationFrame(renderloop);
 
@@ -101,7 +101,7 @@ var renderloop = function renderloop() {
   }
 };
 
-var resizeCanvas = function resizeCanvas() {
+var resizeCanvas = function () {
   body_width  = document.body.clientWidth * 2;
   body_height = document.body.clientHeight * 2;
 

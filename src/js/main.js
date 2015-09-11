@@ -92,8 +92,8 @@ var render = function () {
 
 var renderloop = function () {
   var now = Date.now();
+  
   requestAnimationFrame(renderloop);
-
   render();
   if (now - last_time_activate > 10) {
     activateMover();
